@@ -1,6 +1,6 @@
 ---
 name: HTTP-MobileAgent-Plugin-Location
-version: 0.0.1
+version: 0.0.2
 author:
   - 'OHTSUKA Ko-hei <nene@kokogiko.net>'
 abstract: Add location fuctions to HTTP::MobileAgent
@@ -18,17 +18,9 @@ requires:
   URI::QueryParam: 0
   version: 0
 provides:
-  HTTP::MobileAgent:
-    file: lib/HTTP/MobileAgent/Plugin/Location.pm
-  HTTP::MobileAgent::AirHPhone:
-    file: lib/HTTP/MobileAgent/Plugin/Location.pm
-  HTTP::MobileAgent::DoCoMo:
-    file: lib/HTTP/MobileAgent/Plugin/Location.pm
-  HTTP::MobileAgent::EZweb:
-    file: lib/HTTP/MobileAgent/Plugin/Location.pm
   HTTP::MobileAgent::Plugin::Location:
     file: lib/HTTP/MobileAgent/Plugin/Location.pm
-    version: 0.0.1
+    version: 0.0.2
   HTTP::MobileAgent::Plugin::Location::AreaObject:
     file: lib/HTTP/MobileAgent/Plugin/Location/AreaObject.pm
     version: 0.0.1
@@ -43,9 +35,7 @@ provides:
     version: 0.0.1
   HTTP::MobileAgent::Plugin::Location::Support:
     file: lib/HTTP/MobileAgent/Plugin/Location/Support.pm
-    version: 0.0.1
-  HTTP::MobileAgent::Vodafone:
-    file: lib/HTTP/MobileAgent/Plugin/Location.pm
+    version: 0.0.2
 generated_by: Module::Build version 0.2808
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.2.html

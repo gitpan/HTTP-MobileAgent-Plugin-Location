@@ -12,7 +12,7 @@ use URI;
 use URI::QueryParam;
 use URI::Escape;
 
-use version; our $VERSION = qv('0.0.1');
+use version; our $VERSION = qv('0.0.2');
 my @accuracy = qw(gps hybrid sector);
 my @modes    = qw(gps sector area);
 
@@ -61,7 +61,8 @@ sub import {
 ##########################################
 # Base Module
 
-package HTTP::MobileAgent;
+package # hide from PAUSE
+       HTTP::MobileAgent;
 
 # Set/get query objext
 
@@ -161,7 +162,8 @@ sub _parse_area{
 ##########################################
 # DoCoMo Module
 
-package HTTP::MobileAgent::DoCoMo;
+package # hide from PAUSE
+       HTTP::MobileAgent::DoCoMo;
 
 # Method of gps location html descriptor
 
@@ -347,7 +349,8 @@ sub _parse_area{
 ##########################################
 # EZWeb Module
 
-package HTTP::MobileAgent::EZweb;
+package # hide from PAUSE
+       HTTP::MobileAgent::EZweb;
 
 # Method of gps location html descriptor
 
@@ -481,7 +484,8 @@ sub _parse_location{
 ##########################################
 # SoftBank Module
 
-package HTTP::MobileAgent::Vodafone;
+package # hide from PAUSE
+       HTTP::MobileAgent::Vodafone;
 
 # Method of gps location html descriptor
 
@@ -610,7 +614,8 @@ sub _parse_location{
 ##########################################
 # WILLCOM Module
 
-package HTTP::MobileAgent::AirHPhone;
+package # hide from PAUSE
+       HTTP::MobileAgent::AirHPhone;
 
 # Method of sector location html descriptor
 
@@ -670,7 +675,7 @@ HTTP::MobileAgent::Plugin::Location - Add location fuctions to HTTP::MobileAgent
 
 =head1 VERSION
 
-This document describes HTTP::MobileAgent::Plugin::Location version 0.0.1
+This document describes HTTP::MobileAgent::Plugin::Location version 0.0.2
 
 
 =head1 SYNOPSIS

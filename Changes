@@ -3,3 +3,6 @@ Revision history for HTTP-MobileAgent-Plugin-Location
 0.0.1  Wed Nov 28 04:56:02 2007
        Initial release.
 
+0.0.2  Tue Jan 15 17:29:00 2008
+        Some changes to avoid PAUSE parsing error.
+        Thanks to Mr. Tatsuhiko Miyagawa.

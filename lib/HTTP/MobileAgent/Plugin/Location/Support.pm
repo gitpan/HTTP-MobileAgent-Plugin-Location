@@ -5,7 +5,7 @@ use strict;
 use Carp;
 use HTTP::MobileAgent::Plugin::XHTML;
 
-use version; our $VERSION = qv('0.0.1');
+use version; our $VERSION = qv('0.0.2');
 use vars qw($GPSModels);
 
 my $denv    = $ENV{"DOCOMO_GPSMODELS"};
@@ -56,7 +56,8 @@ $GPSModels = {
 ##########################################
 # Base Module
 
-package HTTP::MobileAgent;
+package # hide from PAUSE
+       HTTP::MobileAgent;
 
 sub support_location{
     my $self = shift;
@@ -74,7 +75,8 @@ sub support_area{ 0 }
 ##########################################
 # DoCoMo Module
 
-package HTTP::MobileAgent::DoCoMo;
+package # hide from PAUSE
+       HTTP::MobileAgent::DoCoMo;
 
 sub support_sector {
     $_[0]->is_foma && (!$_[0]->html_version || $_[0]->html_version >= 5.0) ? 1 : 0
@@ -85,7 +87,8 @@ sub support_area{ 1 }
 ##########################################
 # EZWeb Module
 
-package HTTP::MobileAgent::EZweb;
+package # hide from PAUSE
+       HTTP::MobileAgent::EZweb;
 
 sub multimedia_location {
     my $dev = $_[0]->get_header('x-up-devcap-multimedia') or return 999;
@@ -103,7 +106,8 @@ sub support_sector {
 ##########################################
 # SoftBank Module
 
-package HTTP::MobileAgent::Vodafone;
+package # hide from PAUSE
+       HTTP::MobileAgent::Vodafone;
 
 sub support_sector{
     my $self = shift;
@@ -128,7 +132,8 @@ sub support_sector{
 ##########################################
 # WILLCOM Module
 
-package HTTP::MobileAgent::AirHPhone;
+package # hide from PAUSE
+       HTTP::MobileAgent::AirHPhone;
 
 sub support_sector{ 1 }
 
@@ -142,7 +147,7 @@ HTTP::MobileAgent::Plugin::Location::Support - Add flag of supporting location f
 
 =head1 VERSION
 
-This document describes HTTP::MobileAgent::Plugin::Location::Support version 0.0.1
+This document describes HTTP::MobileAgent::Plugin::Location::Support version 0.0.2
 
 
 =head1 SYNOPSIS
