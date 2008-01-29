@@ -12,7 +12,7 @@ use URI;
 use URI::QueryParam;
 use URI::Escape;
 
-use version; our $VERSION = qv('0.0.2');
+use version; our $VERSION = qv('0.0.3');
 my @accuracy = qw(gps hybrid sector);
 my @modes    = qw(gps sector area);
 
@@ -29,20 +29,25 @@ my %corx = (
     ],
 );
 
+my $escape = {
+    "'" => '&#039;',
+    '"' => '&quot;',
+    '&' => '&amp;',
+    '>' => '&gt;',
+    '<' => '&lt;',
+};
 
+# Inherit
+push (@HTTP::MobileAgent::ISA,qw/Class::Data::Inheritable Class::Accessor::Fast/);
 
 # Class property
 
-Class::Data::Inheritable::mk_classdata("HTTP::MobileAgent","_use_area",0);
-Class::Data::Inheritable::mk_classdata("HTTP::MobileAgent","_use_geocoordinate",0);
+HTTP::MobileAgent->mk_classdata("_use_area",0);
+HTTP::MobileAgent->mk_classdata("_use_geocoordinate",0);
 
 # Object property
 
-{
-    no strict 'refs';
-    for my $accessor (qw/location area err/) 
-        { *{"HTTP::MobileAgent::$accessor"} = Class::Accessor::Fast::make_accessor("HTTP::MobileAgent",$accessor) }
-}
+HTTP::MobileAgent->mk_accessors(qw/location area err/);
 
 # Initialize
 
@@ -99,6 +104,8 @@ sub location_description{
     my $uri      = shift or return $self->set_err("URI value is needed");
     my $desc     = shift or return $self->set_err("Description value is needed");
     my $opt      = shift || {};
+
+    $desc =~ s/([<>&'"])/$escape->{$1}/ge;
 
     return $self->set_err("Not support any location description") unless ($self->support_location);
 
@@ -675,7 +682,7 @@ HTTP::MobileAgent::Plugin::Location - Add location fuctions to HTTP::MobileAgent
 
 =head1 VERSION
 
-This document describes HTTP::MobileAgent::Plugin::Location version 0.0.2
+This document describes HTTP::MobileAgent::Plugin::Location version 0.0.3
 
 
 =head1 SYNOPSIS

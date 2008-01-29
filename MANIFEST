@@ -17,5 +17,3 @@ t/03.parse.lg.t
 t/04.parse.gcc.t
 t/05.area.lg.t
 t/06.area.gcc.t
-t/pod-coverage.tb
-t/pod.t
