@@ -1,6 +1,6 @@
 ---
 name: HTTP-MobileAgent-Plugin-Location
-version: 0.0.3
+version: 0.0.4
 author:
   - 'OHTSUKA Ko-hei <nene@kokogiko.net>'
 abstract: Add location fuctions to HTTP::MobileAgent
@@ -11,7 +11,7 @@ requires:
   CGI: 0
   Class::Accessor::Fast: 0
   Class::Data::Inheritable: 0
-  HTTP::MobileAgent::Plugin::XHTML: 0
+  HTTP::MobileAgent: 0.27
   Test::Base: 0
   URI: 0
   URI::Escape: 0
@@ -20,23 +20,26 @@ requires:
 provides:
   HTTP::MobileAgent::Plugin::Location:
     file: lib/HTTP/MobileAgent/Plugin/Location.pm
-    version: 0.0.3
+    version: 0.0.4
   HTTP::MobileAgent::Plugin::Location::AreaObject:
     file: lib/HTTP/MobileAgent/Plugin/Location/AreaObject.pm
-    version: 0.0.1
+    version: 0.0.2
   HTTP::MobileAgent::Plugin::Location::LocationObject:
     file: lib/HTTP/MobileAgent/Plugin/Location/LocationObject.pm
-    version: 0.0.1
+    version: 0.0.2
   HTTP::MobileAgent::Plugin::Location::LocationObject::GCC:
     file: lib/HTTP/MobileAgent/Plugin/Location/LocationObject/GCC.pm
+    version: 0.0.1
+  HTTP::MobileAgent::Plugin::Location::LocationObject::GP:
+    file: lib/HTTP/MobileAgent/Plugin/Location/LocationObject/GP.pm
     version: 0.0.1
   HTTP::MobileAgent::Plugin::Location::LocationObject::LG:
     file: lib/HTTP/MobileAgent/Plugin/Location/LocationObject/LG.pm
     version: 0.0.1
   HTTP::MobileAgent::Plugin::Location::Support:
     file: lib/HTTP/MobileAgent/Plugin/Location/Support.pm
-    version: 0.0.2
-generated_by: Module::Build version 0.2808
+    version: 0.0.3
+generated_by: Module::Build version 0.280801
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.2.html
   version: 1.2

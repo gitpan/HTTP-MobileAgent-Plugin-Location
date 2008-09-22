@@ -4,14 +4,19 @@ use warnings;
 use strict;
 use Carp;
 
-use version; our $VERSION = qv('0.0.1');
+use version; our $VERSION = qv('0.0.2');
 use base qw/Location::Area::DoCoMo::iArea/;
 
 sub __create_coord{
     my $class = shift;
     my $self; 
 
-    if (HTTP::MobileAgent->_use_geocoordinate) {
+    if (HTTP::MobileAgent->_use_geopoint) {
+        my $loc = shift;
+        my $p   = $loc->transform('tokyo');
+
+        $self = $class->create_coord($p->lat, $p->long, "tokyo", "degree");
+    } elsif (HTTP::MobileAgent->_use_geocoordinate) {
         my $loc = shift;
         my $p   = $loc->convert(degree => 'tokyo');
 

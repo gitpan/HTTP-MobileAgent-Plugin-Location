@@ -4,15 +4,18 @@ use warnings;
 use strict;
 use Carp;
 
-use version; our $VERSION = qv('0.0.1');
+use version; our $VERSION = qv('0.0.2');
 use base qw/Class::Data::Inheritable Class::Accessor::Fast/;
 
-__PACKAGE__->mk_accessors(qw/accuracy mode/);
+__PACKAGE__->mk_accessors(qw/accuracy mode method/);
 
 sub __create_coord{
     my $class = shift;
 
-    if (HTTP::MobileAgent->_use_geocoordinate) {
+    if (HTTP::MobileAgent->_use_geopoint) {
+        require HTTP::MobileAgent::Plugin::Location::LocationObject::GP;
+        $class = "HTTP::MobileAgent::Plugin::Location::LocationObject::GP";
+    } elsif (HTTP::MobileAgent->_use_geocoordinate) {
         require HTTP::MobileAgent::Plugin::Location::LocationObject::GCC;
         $class = "HTTP::MobileAgent::Plugin::Location::LocationObject::GCC";
     } else {
@@ -28,7 +31,10 @@ sub mesh7{
 
     my ($lat,$lon);
 
-    if (HTTP::MobileAgent->_use_geocoordinate) {
+    if (HTTP::MobileAgent->_use_geopoint) {
+        my $point = $self->transform('tokyo');
+        ($lat,$lon) =  map { int ($_ * 3600000) } ( $point->lat, $point->long );
+    } elsif (HTTP::MobileAgent->_use_geocoordinate) {
         my $point = $self->convert( degree => 'tokyo' );
         ($lat,$lon) = map { int ($_ * 3600000) } ($point->lat,$point->lng);
     } else {
@@ -132,6 +138,15 @@ Even if User want to get gps level accuracy data, but terminal cannot access gps
 it fallback to hyblid or sector level accuracy.
 
 
+=head1 METHOD
+
+=over
+
+=item L<mesh7>
+
+=back
+
+
 =head1 DEPENDENCIES
 
 =over
@@ -143,6 +158,8 @@ it fallback to hyblid or sector level accuracy.
 =item L<HTTP::MobileAgent::Plugin::Location::LocationObject::GCC>
 
 =item L<HTTP::MobileAgent::Plugin::Location::LocationObject::LG>
+
+=item L<HTTP::MobileAgent::Plugin::Location::LocationObject::GP>
 
 =back
 

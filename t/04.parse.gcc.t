@@ -8,7 +8,7 @@ use CGI;
 eval "use Geo::Coordinates::Converter;";
 
 SKIP:{
-    skip "Geo::Coordinates::Converter is not installed", 5 * blocks if($@);
+    skip "Geo::Coordinates::Converter is not installed", 6 * blocks if($@);
 
     run {
         local %ENV;

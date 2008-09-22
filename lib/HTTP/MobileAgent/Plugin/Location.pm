@@ -12,9 +12,10 @@ use URI;
 use URI::QueryParam;
 use URI::Escape;
 
-use version; our $VERSION = qv('0.0.3');
+use version; our $VERSION = qv('0.0.4');
 my @accuracy = qw(gps hybrid sector);
 my @modes    = qw(gps sector area);
+my @methods  = qw(gps sector area);
 
 my %corx = (
     "XHTML" => [
@@ -43,6 +44,7 @@ push (@HTTP::MobileAgent::ISA,qw/Class::Data::Inheritable Class::Accessor::Fast/
 # Class property
 
 HTTP::MobileAgent->mk_classdata("_use_area",0);
+HTTP::MobileAgent->mk_classdata("_use_geopoint",0);
 HTTP::MobileAgent->mk_classdata("_use_geocoordinate",0);
 
 # Object property
@@ -111,7 +113,7 @@ sub location_description{
 
     $uri         = ref($uri) ? $uri->clone : URI->new($uri);
     my $method   = uc($opt->{method}) || "ANY";
-    my $html     = uc($opt->{html})   || ($self->xhtml_compliant ? "XHTML" : "CHTML");
+    my $html     = uc($opt->{html})   || ((!$self->is_airh_phone && $self->xhtml_compliant) ? "XHTML" : "CHTML");
 
     my @reqmodes = $opt->{mode} ? ($opt->{mode}) : @modes;
     return $self->set_err("Not support $method method location description") if ($method !~ /^(A|ANY|POST|GET)$/);
@@ -131,7 +133,7 @@ sub location_description{
 # Base methods of each location html descriptor
 
 {
-    no strict 'refs';
+    no strict 'refs'; ## no critic
     foreach my $accessor (@modes) {
         *{"HTTP::MobileAgent::_${accessor}_description"} = sub { return $_[0]->set_err("Not suppot $accessor type location description") };
     }

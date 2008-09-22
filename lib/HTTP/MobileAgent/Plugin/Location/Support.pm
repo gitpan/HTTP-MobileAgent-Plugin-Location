@@ -3,9 +3,9 @@ package HTTP::MobileAgent::Plugin::Location::Support;
 use warnings;
 use strict;
 use Carp;
-use HTTP::MobileAgent::Plugin::XHTML;
+use HTTP::MobileAgent;
 
-use version; our $VERSION = qv('0.0.2');
+use version; our $VERSION = qv('0.0.3');
 use vars qw($GPSModels);
 
 my $denv    = $ENV{"DOCOMO_GPSMODELS"};
@@ -23,6 +23,7 @@ $GPSModels = {
         SO905i
         N905imyu
         F883iES
+        F883iESS
         D904i
         F904i
         N904i
@@ -30,6 +31,7 @@ $GPSModels = {
         SH904i
         D903i
         F903i
+        F903iBSC
         N903i
         P903i
         SO903i
@@ -46,6 +48,15 @@ $GPSModels = {
         813T
         911T
         912T
+        923SH
+        921P
+        921T
+        920P
+        920T
+        824T
+        823T
+        821T
+        820T
         V903T
         V904T
         V904SH
@@ -77,6 +88,13 @@ sub support_area{ 0 }
 
 package # hide from PAUSE
        HTTP::MobileAgent::DoCoMo;
+
+sub support_gps{
+    my $model = $_[0]->model;
+    return 1 if ( $model =~ /90[5-9]/ && $model !~ /TV/ );
+    return 1 if ( $model =~ /88[4-9]/ );
+    return $_[0]->SUPER::support_gps(@_);
+}
 
 sub support_sector {
     $_[0]->is_foma && (!$_[0]->html_version || $_[0]->html_version >= 5.0) ? 1 : 0

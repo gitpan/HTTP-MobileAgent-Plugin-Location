@@ -4,6 +4,7 @@ lib/HTTP/MobileAgent/Plugin/Location.pm
 lib/HTTP/MobileAgent/Plugin/Location/AreaObject.pm
 lib/HTTP/MobileAgent/Plugin/Location/LocationObject.pm
 lib/HTTP/MobileAgent/Plugin/Location/LocationObject/GCC.pm
+lib/HTTP/MobileAgent/Plugin/Location/LocationObject/GP.pm
 lib/HTTP/MobileAgent/Plugin/Location/LocationObject/LG.pm
 lib/HTTP/MobileAgent/Plugin/Location/Support.pm
 Makefile.PL
@@ -15,5 +16,7 @@ t/01.support.t
 t/02.desc.t
 t/03.parse.lg.t
 t/04.parse.gcc.t
-t/05.area.lg.t
-t/06.area.gcc.t
+t/05.parse.gp.t
+t/06.area.lg.t
+t/07.area.gcc.t
+t/08.area.gp.t

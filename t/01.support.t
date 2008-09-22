@@ -90,6 +90,14 @@ DoCoMo/2.0 F883iES(c100;TB;W20H08)
 1
 1
 
+=== F883i Test 3
+--- input
+DoCoMo/2.0 F883iESS(c100;TB;W20H08)
+--- expected
+1
+1
+1
+
 === Sector unsupported test: mova
 --- input
 DoCoMo/1.0/F505iGPS/c20/TB/W20H10
@@ -105,3 +113,68 @@ DoCoMo/2.0 F2051(c100;TB)
 1
 0
 0
+
+=== After 905 Test 1
+--- input
+DoCoMo/2.0 SH906iTV(c100;TB)
+--- expected
+1
+1
+0
+
+=== After 905 Test 2
+--- input
+DoCoMo/2.0 SH906i(c100;TB)
+--- expected
+1
+1
+1
+
+=== After 905 Test 3
+--- input
+DoCoMo/2.0 P905iTV(c100;TB)
+--- expected
+1
+1
+0
+
+=== After 905 Test 4
+--- input
+DoCoMo/2.0 P905i(c100;TB)
+--- expected
+1
+1
+1
+
+=== Rakuraku Test 1
+--- input
+DoCoMo/2.0 F884i(c100;TB)
+--- expected
+1
+1
+1
+
+=== Rakuraku Test 2
+--- input
+DoCoMo/2.0 F884iES(c100;TB)
+--- expected
+1
+1
+1
+
+=== SoftBank Test 1
+--- input
+SoftBank/1.0/922SH/SHJ001 Browser/NetFront/3.4 Profile/MIDP-2.0
+--- expected
+0
+1
+0
+
+=== SoftBank Test 2
+--- input
+SoftBank/1.0/923SH/SHJ001 Browser/NetFront/3.4 Profile/MIDP-2.0
+--- expected
+0
+1
+1
+

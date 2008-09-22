@@ -13,7 +13,7 @@ my $builder = Module::Build->new(
         'CGI'                              => 0,
         'Class::Data::Inheritable'         => 0,
         'Class::Accessor::Fast'            => 0,
-        'HTTP::MobileAgent::Plugin::XHTML' => 0,
+        'HTTP::MobileAgent'                => 0.27,
         'URI'                              => 0,
         'URI::QueryParam'                  => 0,
         'URI::Escape'                      => 0,
@@ -25,16 +25,18 @@ my $builder = Module::Build->new(
                 'Location::GeoTool'             => 2,
             },
         },
+        'Geo::Point' => {
+            description => "Use location object as Geo::Point",
+            requires    => {
+                'Geo::Point'                    => 0,
+                'Geo::Proj::Japan'              => 0,  
+                'Geo::Point::Plugin::Transform' => 0,
+            },
+        },
         'Geo::Coordinates::Converter' => {
             description => "Use location object as Geo::Coordinates::Converter",
             requires    => {
                 'Geo::Coordinates::Converter'   => 0,
-            },
-        },
-        'i-Area'                      => {
-            description => "Use i-Area object",
-            requires    => {
-                'Location::Area::DoCoMo::iArea' => 2.1,
             },
         },
     },

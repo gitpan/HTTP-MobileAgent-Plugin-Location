@@ -2,21 +2,22 @@ use strict;
 use Test::Base;
 plan tests => 6 * blocks;
 
-use HTTP::MobileAgent::Plugin::Location;
+use HTTP::MobileAgent::Plugin::Location qw(use_geopoint);
 use CGI;
 
-eval "use Location::GeoTool;";
+eval "use Geo::Point; use Geo::Proj::Japan; use Geo::Point::Plugin::Transform;";
 
+warn $@ if ($@);
 SKIP:{
-    skip "Location::GeoTool is not installed", 5 * blocks if($@);
+    skip "Geo::Point, Geo::Proj::Japan or Geo::Point::Plugin::Transform are not installed", 6 * blocks if($@);
 
     run {
         local %ENV;
 
         my $block = shift;
         my ($ua,$qs)                               = split(/\n/,$block->input);
-        my ($lat,$long,$accuracy,$mode,$out_datum,$mesh7) = split(/\n/,$block->expected);
- 
+        my ($lat,$long,$accuracy,$mode,$proj,$mesh7) = split(/\n/,$block->expected);
+
         $ENV{'HTTP_USER_AGENT'} = $ua;
         $ENV{'REQUEST_METHOD'}  = "GET";
         if ($qs =~ s/^xjg://) {
@@ -24,13 +25,14 @@ SKIP:{
         } else {
             $ENV{'QUERY_STRING'}          = $qs;
         }
-    
+
         CGI::initialize_globals;
         my $ma = HTTP::MobileAgent->new;
         my $loc = $ma->parse_location;
 
-        foreach my $accessor (qw/lat long accuracy mode out_datum mesh7/) {
-            is ($loc->$accessor,eval "\$$accessor");
+        foreach my $accessor (qw/lat long accuracy mode proj mesh7/) {
+            my $got = $accessor =~ /^l/ ? sprintf( "%.6f", $loc->$accessor ) : $loc->$accessor;
+            is ( $got, eval "\$$accessor" );
         }
     };
 };
@@ -41,8 +43,8 @@ __END__
 DoCoMo/2.0 P903i(c100;TB;W24H12)
 lat=%2B35.00.35.600&lon=%2B135.41.35.600&geo=wgs84&x-acc=3
 --- expected
-+35.00.35.600
-+135.41.35.600
+35.009889
+135.693222
 gps
 gps
 wgs84
@@ -53,8 +55,8 @@ wgs84
 DoCoMo/2.0 P903i(c100;TB;W24H12)
 AREACODE=06000&ACTN=OK&LAT=%2B35.40.23.975&LON=%2B139.44.24.926&GEO=wgs84&XACC=1
 --- expected
-+35.40.23.975
-+139.44.24.926
+35.673326
+139.740257
 sector
 sector
 wgs84
@@ -65,8 +67,8 @@ wgs84
 DoCoMo/1.0/F505iGPS/c20/TB/W24H12
 pos=N35.41.35.60E139.01.35.61&geo=wgs84&X-acc=2
 --- expected
-35.41.35.60
-139.01.35.61
+35.693222
+139.026558
 hybrid
 gps
 wgs84
@@ -77,8 +79,8 @@ wgs84
 KDDI-KC31 UP.Browser/6.2.0.5 (GUI) MMP/2.0
 ver=1&datum=0&unit=0&lat=%2b34.44.36.02&lon=%2b135.26.44.35&alt=33&time=20061021144922&smaj=104&smin=53&vert=41&majaa=96&fm=2
 --- expected
-+34.44.36.02
-+135.26.44.35
+34.743339
+135.445653
 sector
 gps
 wgs84
@@ -89,8 +91,8 @@ wgs84
 KDDI-KC31 UP.Browser/6.2.0.5 (GUI) MMP/2.0
 datum=tokyo&unit=dms&lat=35.43.25.38&lon=135.43.25.38
 --- expected
-35.43.25.38
-135.43.25.38
+35.723717
+135.723717
 sector
 sector
 wgs84
@@ -101,8 +103,8 @@ wgs84
 SoftBank/1.0/910T/TJ001/SN351774012575317 Browser/NetFront/3.3 Profile/MIDP-2.0 Configuration/CLDC-1.1
 pos=N35.41.35.60E139.01.35.61&geo=wgs84&x-acr=3
 --- expected
-35.41.35.60
-139.01.35.61
+35.693222
+139.026558
 gps
 gps
 wgs84
@@ -113,8 +115,8 @@ wgs84
 SoftBank/1.0/910T/TJ001/SN351774012575317 Browser/NetFront/3.3 Profile/MIDP-2.0 Configuration/CLDC-1.1
 pos=N35.41.35.60E139.01.35.61&geo=wgs84&x-acr=1
 --- expected
-35.41.35.60
-139.01.35.61
+35.693222
+139.026558
 sector
 sector
 wgs84
@@ -125,8 +127,8 @@ wgs84
 J-PHONE/4.2/J-SH53 SH/0003aa Profile/MIDP-1.0 Configuration/CLDC-1.0 Ext-Profile/JSCL-1.2.1
 xjg:354135%1A1390135%1A%88%CA%92%75%8F%EE%95%F1%82%C8%82%B5
 --- expected
-35.41.35.0
-139.01.35.0
+35.693056
+139.026389
 sector
 sector
 tokyo
@@ -137,8 +139,8 @@ tokyo
 Mozilla/3.0(WILLCOM;KYOCERA/WX310K/2;1.2.3.16.000000/0.1/C100) Opera 7.0
 pos=N35.44.33.150E135.22.33.121
 --- expected
-35.44.33.150
-135.22.33.121
+35.742542
+135.375867
 sector
 sector
 tokyo
