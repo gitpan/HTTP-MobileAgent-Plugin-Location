@@ -7,7 +7,6 @@ use CGI;
 
 eval "use Geo::Point; use Geo::Proj::Japan; use Geo::Point::Plugin::Transform;";
 
-warn $@ if ($@);
 SKIP:{
     skip "Geo::Point, Geo::Proj::Japan or Geo::Point::Plugin::Transform are not installed", 6 * blocks if($@);
 

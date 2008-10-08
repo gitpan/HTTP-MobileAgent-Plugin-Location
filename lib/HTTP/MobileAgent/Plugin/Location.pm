@@ -12,7 +12,7 @@ use URI;
 use URI::QueryParam;
 use URI::Escape;
 
-use version; our $VERSION = qv('0.0.4');
+use version; our $VERSION = qv('0.0.5');
 my @accuracy = qw(gps hybrid sector);
 my @modes    = qw(gps sector area);
 my @methods  = qw(gps sector area);
@@ -711,11 +711,6 @@ This document describes HTTP::MobileAgent::Plugin::Location version 0.0.3
   
   my $desc = $ma->location_description($uri,$desc,$opt) or warn $ma->err;
   
-  # Returns L<HTTP::MobileAgent::Plugin::Location::HTMLElement> object, or undef if error occurs.
-  # L<HTTP::MobileAgent::Plugin::Location::HTMLElement> is subclass of L<HTML::Element>, 
-  # and see more detail in it's pod.
-  # If undef returns, you can check the reason by B<err> method.
-
 
   # If you want to parse lat-long location from query, you do as below
   
@@ -780,16 +775,7 @@ This document describes HTTP::MobileAgent::Plugin::Location version 0.0.3
 
 =item L<HTTP::MobileAgent::Plugin::Location::AreaObject>
 
-=item L<HTTP::MobileAgent::Plugin::Location::HTMLElement>
-
 =back
-
-
-=head1 BUGS AND LIMITATIONS
-
-No bugs have been reported.
-
-Please report any bugs or feature requests to C<nene@kokogiko.net>.
 
 
 =head1 AUTHOR
@@ -799,7 +785,7 @@ OHTSUKA Ko-hei  C<< <nene@kokogiko.net> >>
 
 =head1 LICENCE AND COPYRIGHT
 
-Copyright (c) 2007, OHTSUKA Ko-hei C<< <nene@kokogiko.net> >>. All rights reserved.
+Copyright (c) 2007, OHTSUKA Ko-hei C<< <nene@kokogiko.net> >>. 
 
 This module is free software; you can redistribute it and/or
 modify it under the same terms as Perl itself. See L<perlartistic>.

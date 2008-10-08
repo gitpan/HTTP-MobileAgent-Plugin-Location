@@ -8,7 +8,7 @@ use CGI;
 eval "use Location::GeoTool;";
 
 SKIP:{
-    skip "Location::GeoTool is not installed", 5 * blocks if($@);
+    skip "Location::GeoTool is not installed", 6 * blocks if($@);
 
     run {
         local %ENV;

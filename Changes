@@ -1,5 +1,8 @@
 Revision history for HTTP-MobileAgent-Plugin-Location
 
+0.0.5  Thu Oct 09 2008
+       Fix some errors in test script
+
 0.0.4  Mon Sep 22 2008
        Add Geo::Point support
        Remove H::MA::P::XHTML dependency

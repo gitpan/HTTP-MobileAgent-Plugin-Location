@@ -1,19 +1,6 @@
-HTTP-MobileAgent-Plugin-Location version 0.0.3
+HTTP-MobileAgent-Plugin-Location
 
-[ REPLACE THIS...
-
-  The README is used to introduce the module and provide instructions on
-  how to install the module, any machine dependencies it may have (for
-  example C compilers and installed libraries) and any other information
-  that should be understood before the module is installed.
-
-  A README file is required for CPAN modules since CPAN extracts the
-  README file from a module distribution so that people browsing the
-  archive can use it get an idea of the modules uses. It is usually a
-  good idea to provide version information here so that people can
-  decide whether fixes for the module are worth downloading.
-]
-
+Add location fuctions to HTTP::MobileAgent
 
 INSTALLATION
 
@@ -34,7 +21,15 @@ Alternatively, to install with Module::Build, you can use the following commands
 
 DEPENDENCIES
 
-None.
+CGI
+Class::Data::Inheritable
+Class::Accessor::Fast
+URI
+URI::QueryParam
+URI::Escape
+HTTP::MobileAgent::Plugin::Location::Support
+HTTP::MobileAgent::Plugin::Location::LocationObject
+HTTP::MobileAgent::Plugin::Location::AreaObject
 
 
 COPYRIGHT AND LICENCE
